@@ -8,7 +8,7 @@
 * git 
   * Version Control System
 * vscode
-  * Code Editor!!
+  * Code Editor
 * chrome
   * Browser
 
