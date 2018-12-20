@@ -12,17 +12,20 @@ for key, value in lotto_data.items():
         real_numbers.append(value)
 
 real_numbers.sort()
+real_numbers = set(real_numbers)
 bonus_number = lotto_data['bnusNo']
 
-numbers = list(range(1, 46))
+match_count = len(my_numbers & real_numbers)
 
-my_numbers = random.sample(numbers, 6)
-my_numbers.sort()
-
-# my_numbers, real_numbers, bonus_number
-# 1 등: my_numbers == real_numbers
-# 2 등: real & my 가 5개가 같고, my의 나머지 하나가 bonus_number
-# 3 등: real & my 가 5개가 같다
-# 4 등: real & my 가 4개가 같다
-# 5 등: real & my 가 3개가 같다
-# 꽝
+if match_count == 6:
+    print('1등')
+elif match_count == 5 and bonus_number in my_numbers:
+    print('2등')
+elif match_count == 5:
+    print('3등')
+elif match_count == 4:
+    print('4등')
+elif match_count == 3:
+    print('5등')
+else:
+    print('꽝')
