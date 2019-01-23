@@ -21,7 +21,7 @@
 CREATE TABLE <table_name> (
 	<col> DATA_TYPE PRIMARY KEY AUTOINCREMENT,
     <col> DATA_TYPE NOT NULL,
-    <col> DATA_TYPE,
+    <col> DATA_TYPE DEFAULT <value>,
     ...
 );
 ```
@@ -40,6 +40,11 @@ RENAME TO <new_table_name>;
 ```
 
 ### Table 컬럼 추가
+
+```sql
+ALTER TABLE <table_name>
+ADD COLUMN <new_col_name> DATATYPE;
+```
 
 
 
@@ -115,21 +120,21 @@ SELECT MIN(<col>) FROM <table_name>
 SELECT MAX(<col>) FROM <table_name>
 ```
 
-## 정렬(order)
+### 정렬(order)
 
 ```sql
 SELECT <col> FROM <table_name>
 ORDER BY <col_1>, <col_2> [ASC | DESC];
 ```
 
-## 제한(Limit)
+### 제한(Limit)
 
 ```sql
 SELECT <col> FROM <table_name>
 LIMIT <num>
 ```
 
-## 패턴(Pattern)
+### 패턴(Pattern)
 
 ```sql
 SELECT * FROM <table_name>
