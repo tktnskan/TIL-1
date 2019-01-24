@@ -440,12 +440,14 @@ def hello(request, name):
 현재 모든 html 파일들이 `<!DOCTYPE html>` 부터 시작하는 중복되는 마크업 코드들이 있다. 중복을 제거해 보자!
 
 ```sh
-$ touch home/templates/base.html
+$ touch home/templates/home_base.html
 ```
+
+각 app 에서 사용할 베이스 템플릿 파일은 app 의 이름을 포함하여 이름짓도록 하자. 이름이 겹치면 의도하지 않은대로 동작한다.
 
 현재 `<title>` 과 `<body>` 안의 내용만 다르다! 이렇게 다르게 사용할 내용들을 교체 가능하도록 만들어 보자.
 
-`home/templates/base.html`
+`home/templates/home_base.html`
 
 ```html
 <!DOCTYPE html>
@@ -468,7 +470,7 @@ $ touch home/templates/base.html
 `home/templates/index.html`
 
 ```html
-{% extends 'base.html' %}
+{% extends 'home_base.html' %}
 
 {% block title %} Home {% endblock %}
 
@@ -483,7 +485,7 @@ $ touch home/templates/base.html
 `home/templates/about.html`
 
 ```html
-{% extends 'base.html' %}
+{% extends 'home_base.html' %}
 
 {% block title %} About {% endblock %}
 
@@ -498,7 +500,7 @@ $ touch home/templates/base.html
 `home/templates/hello.html`
 
 ```html
-{% extends 'base.html' %}
+{% extends 'home_base.html' %}
 
 {% block title %} Hello {% endblock %}
 
@@ -574,7 +576,7 @@ INSTALLED_APPS = [
 ```sh
 $ mkdir utilites/templates
 $ cd utilities/templates/
-$ touch base.html index.html jackpot.html forecast.html stock_input.html stock_result.html
+$ touch utilites_base.html index.html jackpot.html forecast.html stock_input.html stock_result.html
 $ cd -
 ```
 
