@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Posting, Comment
 
 def posting_list(request):
-    pass
+    postings = Posting.objects.all()
+    return render(request, 'sns/list.html', {
+        'postings': postings,
+    })
 
 def posting_detail(request):
     pass
