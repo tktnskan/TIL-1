@@ -9,4 +9,6 @@ urlpatterns = [
     path('new/', views.create_posting, name='create_posting'),
     path('<int:posting_id>/edit/', views.edit_posting, name='edit_posting'),
     path('<int:posting_id>/delete/', views.delete_posting, name='delete_posting'),
+
+    path('<int:posting_id>/comments/create/', views.create_comment, name='create_comment')
 ]

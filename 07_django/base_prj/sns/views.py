@@ -32,3 +32,12 @@ def edit_posting(request):
 
 def delete_posting(request):
     pass
+
+def create_comment(request, posting_id):
+    posting = get_object_or_404(Posting, id=posting_id)
+    if request.method == 'POST':
+        comment = Comment()
+        comment.content = request.POST.get('comment')
+        comment.posting = posting
+        comment.save()
+    return redirect('sns:posting_detail', posting.id)
