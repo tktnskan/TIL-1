@@ -1,8 +1,8 @@
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a href="{% url 'sns:posting_list' %}" class="nav-link active">SNS</a>
+        <a href="{% url 'sns:posting_list' %}" class="nav-link {% block list %}{% endblock %}">SNS</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" aria-disabled="true">Detail</a>
+        <a class="nav-link {% block detail %}{% endblock %}" aria-disabled="true">Detail</a>
     </li>
 </ul>
