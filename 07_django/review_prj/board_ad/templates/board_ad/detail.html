@@ -1,16 +1,65 @@
 {% extends 'board/base.html' %}
 
 {% block body %}
-    <h1>{{ article.title }}</h1>
+    <h1>{{ posting.title }}</h1>
     <p>
-        {{ article.content }}
+        {{ posting.content }}
     </p>
     <hr>
-    <a href="/board/articles/"><button>List</button></a>
-    <a href="/board/articles/{{ article.id }}/edit/"><button>Edit</button></a>
-    <form action="/board/articles/{{ article.id }}/delete/" method="post">
+    <a href="{% url 'board_ad:posting_list' %}"><button>List</button></a>
+    <a href="{% url 'board_ad:update_posting' posting.id %}"><button>Edit</button></a>
+    <form action="{% url 'board_ad:delete_posting' posting.id %}" method="post">
         {% csrf_token %}
-        <button type="submit">Delete</button>
+        <button type="submit" onclick="return confirm('진짜 지울거야?');">Delete</button>
     </form>
+    <hr>
+    <form action="{% url 'board_ad:create_comment' posting.id %}" method="post">
+        {% csrf_token %}
+        <label for="comment">comment: </label>
+        <input type="text" name="comment" id="comment">
+        <button type="submit">댓글 쓰기</button>
+    </form>
+    <section>
+        {% if comments %}
+            <ul>
+                {% for comment in comments %}
+                    <li>
+                        {{ comment.content }}
+                        <form style="display: inline-block" action="{% url 'board_ad:delete_comment' posting_id=posting.id comment_id=comment.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </section>
+{#    <button id="deleteButton">DELETE</button>#}
 
+    <!--
+    <script>
+        const button = document.querySelector('#deleteButton');
+        button.addEventListener('click', (e) => {
+            const XHR = new XMLHttpRequest();
+            const URL = '{#% url 'board_ad:delete_posting' posting.id %#}';
+            const cookieSet = {};
+            document.cookie.split('&').forEach(cookieString=>{
+                const kv = cookieString.split('=');
+                cookieSet[kv[0]] = kv[1]
+            });
+            console.log(cookieSet);
+            XHR.open('POST', URL, true);
+            XHR.setRequestHeader(
+                'Content-type', 'application/x-www-form-urlencoded'
+            );
+            XHR.onreadystatechange = function () {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    window.location.replace('{#% url 'board_ad:posting_list' %#}');
+                }
+            };
+
+            XHR.send(`csrfmiddlewaretoken=${cookieSet.csrftoken}`);
+        });
+    </script>
+    -->
 {% endblock %}
