@@ -1,10 +1,9 @@
 from django.urls import path
 from . import views
-app_name = 'board'
 
 urlpatterns = [
-    path('index/', views.index),  # DOMAIN/board/index
-    path('greeting/<str:name>/<str:role>/', views.greeting),  # DOMAIN/board/greeting/john
+    path('index/', views.index),  # DOMAIN/board_ad/index
+    path('greeting/<str:name>/<str:role>/', views.greeting),  # DOMAIN/board_ad/greeting/john
 
     # Create
     # /articles/new => html (새로 작성하는 화면)
