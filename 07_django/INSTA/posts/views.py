@@ -1,31 +1,31 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
-from .models import Post
-from .forms import PostModelForm
+from .models import Post, Image
+from .forms import PostModelForm, ImageModelForm
 
 
 @require_http_methods(['GET', 'POST'])
 def create_post(request):
-    # POST 방식으로 넘온 Data 를 ModelForm 에 넣는다.
     if request.method == 'POST':
-        # POST 방식으로 넘온 Data 를 ModelForm 에 넣는다.
-        form = PostModelForm(request.POST, request.FILES)
-
-        if form.is_valid():  # Data 검증을 한다.
-            # 통과하면 저장한다.
-            form.save()
-            # 저장하고, redirect
+        post_form = PostModelForm(request.POST)
+        if post_form.is_valid():
+            post = post_form.save()
+            for image in request.FILES.getlist('file'):
+                request.FILES['file'] = image
+                image_form = ImageModelForm(request.FILES)
+                if image_form.is_valid():
+                    image = image_form.save(commit=False)
+                    image.post = post
+                    image.save()
             return redirect('posts:post_list')
         else:
-            # 실패하면, 다시 data 입력 form 을 준다.
             pass
-    # GET 방식으로 요청이 오면,
     else:
-        # 새로운 Post 용 form 을 만든다.
-        form = PostModelForm()
-    # 사용자에게 html 과 form 을 같이 넘긴다.
+        post_form = PostModelForm()
+        image_form = ImageModelForm()
     return render(request, 'posts/form.html', {
-        'form': form,
+        'post_form': post_form,
+        'image_form': image_form,
     })
 
 
