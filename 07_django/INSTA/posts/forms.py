@@ -3,7 +3,7 @@ from .models import Post, Image
 
 
 class PostModelForm(forms.ModelForm):
-    content = forms.EmailField()
+    # content = forms.EmailField()
     class Meta:
         model = Post
         fields = '__all__'
