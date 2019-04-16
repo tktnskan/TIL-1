@@ -22,12 +22,31 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#">New</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">MyPage</a>
-            </li>
+{#            사용자가 인증 되었니? == logged in #}
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'posts:create_post' %}">New</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">MyPage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:logout' %}">
+                        Logout
+                    </a>
+                </li>
+{#                아니니? #}
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:signup' %}">
+                        Signup
+                    </a>
+                </li>
+            {% endif %}
+
         </ul>
     </div>
 </nav>

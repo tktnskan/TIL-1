@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mton',
-    'onetoone',
+    # 'onetoone',
     'onetomany',
     'posts',
+    'accounts',
 ]
 
 MIDDLEWARE = [
