@@ -6,7 +6,7 @@ class PostModelForm(forms.ModelForm):
     # content = forms.EmailField()
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ['content', ]
 
 
 class ImageModelForm(forms.ModelForm):
