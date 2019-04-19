@@ -1,5 +1,5 @@
 <div class="card my-3">
-    {% if post.image_set %}
+    {% if post.image_set.all %}
         <div id="post{{post.id}}" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
                 {% for image in post.image_set.all %}
@@ -22,6 +22,50 @@
     {% endif %}
     <div class="card-body">
         <p class="card-text">{{post.content}}</p>
-        <a href="{% url 'posts:update_post' post.id %}" class="btn btn-warning">수정</a>
+        <p class="card-text">
+            <a href="{% url 'accounts:user_detail' post.user.username %}">{{ post.user.username }}</a>
+        </p>
+
+
+    </div>
+
+    <div class="card-body">
+        <!-- 좋아요 버튼 시작 -->
+        <form method="post" action="{% url 'posts:toggle_like' post.id %}">
+            {% csrf_token %}
+            {%if user in post.like_users.all %}
+                <button type="submit">DislikeIt</button>
+            {%else%}
+                <button type="submit">likeIt</button>
+            {%endif%}
+        </form>
+        <p class="card-text"><strong>{{post.user}}</strong> {{post.content}}</p>
+
+        <p class="card-text">좋아요 {{post.like_users.count}}개</p>
+        <!-- 좋아요 끝 -->
+        {% if user == post.user %}
+            <a href="{% url 'posts:update_post' post.id %}" class="btn btn-warning">수정</a>
+        {% endif %}
+    </div>
+
+    <div class="card-body">
+        {% for comment in post.comment_set.all %}
+            <p class="card-text">
+                <strong>{{ comment.user.username }}</strong> : {{ comment.content }}
+            </p>
+        {% empty %}
+            <p class="card-text">
+                댓글을 달아주세요!
+            </p>
+        {% endfor %}
+    </div>
+    <div class="card-footer">
+        <form action="{% url 'posts:create_comment' post.id %}" method="post">
+            {% csrf_token %}
+            <div>
+                {{ comment_form.content  }}
+                <input type="submit" class="btn btn-light">
+            </div>
+        </form>
     </div>
 </div>
