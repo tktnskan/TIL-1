@@ -8,10 +8,25 @@ from faker import Faker
 faker = Faker()
 
 
+class HashTag(models.Model):
+    content = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.content
+
+    def save(self, *args, **kwargs):
+
+        if len(self.content) > 20:
+            raise ValueError('long hashtag')
+        else:
+            super(HashTag, self).save()
+
+
 class Post(TimeStampedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.CharField(max_length=140)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_posts')
+    tags = models.ManyToManyField(HashTag, blank=True, related_name='posts')
 
     @classmethod
     def dummy(cls, n):

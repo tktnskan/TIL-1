@@ -2,6 +2,7 @@ from django import forms
 from .models import Post, Image, Comment
 
 
+
 class PostModelForm(forms.ModelForm):
     # content = forms.EmailField()
     class Meta:
