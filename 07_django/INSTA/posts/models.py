@@ -14,13 +14,6 @@ class HashTag(models.Model):
     def __str__(self):
         return self.content
 
-    def save(self, *args, **kwargs):
-
-        if len(self.content) > 20:
-            raise ValueError('long hashtag')
-        else:
-            super(HashTag, self).save()
-
 
 class Post(TimeStampedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
