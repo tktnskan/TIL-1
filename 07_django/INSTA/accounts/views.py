@@ -42,7 +42,7 @@ def login(request):
                 auth_login(request, form.get_user())
                 messages.add_message(request, messages.SUCCESS, f'Welcome back, {user.username}!')
                 messages.add_message(request, messages.INFO, f'Last login: {user.last_login}')
-                return redirect(request.GET.get('next') or 'posts:post_list')
+                return redirect(request.GET.get('next', '/hihi/'))# or 'posts:post_list')
         else:  # 사용자가 로그인 화면을 요청할 때
             form = CustomUserAuthenticationForm()
         return render(request, 'accounts/login.html', {
