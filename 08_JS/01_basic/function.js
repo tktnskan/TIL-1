@@ -13,7 +13,7 @@ function add (num1, num2) {
 
 // 2. 변수에 함수 로직 할당 ***** 함수는 const *****
 const sub = function (num1, num2) {
-    return num1 - num2;
+    return  num1 - num2;
 };
 
 // 3. 함수 표현식 2가지
